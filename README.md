@@ -19,3 +19,7 @@ To build the bootloader separately
 cd bootloader
 make
 ```
+
+## SHA1
+SHA1 library originally from [@gabrielrcouto/avr-sha1](https://github.com/gabrielrcouto/avr-sha1) licensed under the 
+MIT open-source license.
