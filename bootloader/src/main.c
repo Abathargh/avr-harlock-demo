@@ -18,6 +18,7 @@
 
 
 void hello_blink(void);
+void error_blink(void);
 bool is_app_valid(const uint8_t * digest);
 
 int main(void) {
@@ -45,17 +46,20 @@ int main(void) {
 	if(is_app_valid(digest)) {
 		__asm__("jmp 0000");
 	}
-
-	for(;;) {
-		PORTA ^= (1U << LED);
-		_delay_ms(250);
-	}
+	error_blink();
 }
 
 void hello_blink(void) {
 	for(int i = 0; i < 4; i++) {
 		PORTA ^= (1U << LED);
 		_delay_ms(500);
+	}
+}
+
+__attribute__((noreturn)) void error_blink(void) {
+	for(;;) {
+		PORTA ^= (1U << LED);
+		_delay_ms(250);
 	}
 }
 
