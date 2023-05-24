@@ -9,6 +9,9 @@ INC=-I ./inc
 MCU=atmega644
 CLOCK_FREQ=8000000
 PROG_STR=atmelice
+LFUSE=0xe2
+HFUSE=0x18
+EFUSE=0xff
 
 # Compiler flags
 CFLAGS=-std=c11 -Wall -Wextra -Werror -mmcu=$(MCU) -DF_CPU=$(CLOCK_FREQ)
@@ -39,6 +42,9 @@ build/%.o: %.c
 
 release: OPT_FLAGS=-O2 -DNDEBUG
 release: $(PROJ_BLD).elf
+
+fuse:
+	avrdude -c $(PROG_STR) -p $(MCU) -U lfuse:w:$(LFUSE):m -U hfuse:w:$(HFUSE):m -U efuse:w:$(EFUSE):m
 
 flash:
 	avrdude -c $(PROG_STR) -p $(MCU) -U flash:w:$(PROJ_BLD).hex:i
