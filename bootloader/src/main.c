@@ -35,8 +35,7 @@ int main(void) {
 	uint16_t text_addr = pgm_read_word(OFFSET_TEXT_ADDR);
 	uint16_t text_size = pgm_read_word(OFFSET_TEXT_SIZE);
 
-	size_t i;
-	for(i = 0; i < text_size; i++) {
+	for(size_t i = 0; i < text_size; i++) {
 		uint8_t curr_byte = pgm_read_byte((text_addr+i));
 		SHA1Input(&ctx, &curr_byte, 1);
 	}
@@ -64,8 +63,7 @@ __attribute__((noreturn)) void error_blink(void) {
 }
 
 bool is_app_valid(const uint8_t * digest) {
-	size_t i;
-	for(i = 0; i < SHA1HASH_SIZE; i++) {
+	for(size_t i = 0; i < SHA1HASH_SIZE; i++) {
 		uint8_t curr_byte = pgm_read_byte((OFFSET_SHA1HASH+i));
 		if(digest[i] != curr_byte) {
 			return false;
